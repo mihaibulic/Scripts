@@ -69,7 +69,7 @@ cd $HOME/Workspaces/audiomaster && mkdir -p build && ant
 cd $HOME/Workspaces/jarvis/java && mkdir -p build && ant
 cd $HOME/Workspaces/personal/java && mkdir -p build && ant
 cd $HOME/Workspaces/music/java && mkdir -p build && ant
-cd $HOME/Workspaces/justastat && mvn clean install
+cp $HOME/Workspaces/justastat/settings.xml $HOME/.m2/. && cd $HOME/Workspaces/justastat && mvn clean install
 cd $HOME
 
 # SCRIPT #
@@ -78,4 +78,4 @@ git config --global user.email mihaibulic@gmail.com
 git config --global credential.helper cache
 
 sudo apt-get -y -q install preload
-sudo apt-get -y -q purge brltty brltty-x11 gwibber gwibber-service empathy empathy-common rhythmbox rhythmbox-date
+sudo apt-get -y -q purge brltty brltty-x11 gwibber gwibber-service empathy empathy-common rhythmbox rhythmbox-date thunderbird evolution-data-server-common evolution-data-server indicator-messages
