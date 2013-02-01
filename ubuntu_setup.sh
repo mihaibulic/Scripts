@@ -1,6 +1,5 @@
 #/bin/sh
 set -e
-
 # INSTALL #
 # INSTALL PREP (/etc/apt/sources.list) #
 sudo echo ‘deb http://repository.spotify.com stable non-free’ >> /etc/apt/sources.list
@@ -25,9 +24,13 @@ sudo apt-get -y -q install traceroute denyhosts nmap netcat wireshark sysstat au
 # CODE #
 cd $HOME
 git clone http://github.com/Scripts.git
+cd Scripts/cfg
 mkdir -p $HOME/Workspaces
-cp -r Scripts/cfg/jars $HOME/Workspaces/.
-cp Scripts/cfg/bashrc $HOME/.bashrc
+cp -r jars $HOME/Workspaces/.
+mkdir -p $HOME/.ec2
+cp *.pem $HOME/.ec2/.
+chmod 400 $HOME/.ec2/*.pem
+cp bashrc $HOME/.bashrc
 source $HOME/.bashrc
 
 cd $HOME/Workspaces
@@ -39,7 +42,7 @@ make
 sudo make install
 
 cd $HOME/Workspaces
-svn checkout https://libdc1394.svn.sourceforge.net/svnroot/libdc1394/trunk/libdc1394/
+svn co https://libdc1394.svn.sourceforge.net/svnroot/libdc1394/trunk/libdc1394/
 cd libdc1394
 autoreconf -i -s
 ./configure
@@ -48,18 +51,18 @@ sudo make install
 
 cd $HOME/Workspaces
 git clone git://april.eecs.umich.edu/home/git/april.git
-git clone http://github/mihaibulic/april.git myapril
-git clone http://github/mihaibulic/audiomaster.git
-git clone http://github/mihaibulic/dibmap.git
-git clone http://github/mihaibulic/jarvis.git
-git clone http://github/mihaibulic/lcm.git
-git clone http://github/mihaibulic/madmin.git
-git clone http://github/mihaibulic/misquares.git
-git clone http://github/mihaibulic/music.git
-git clone http://github/mihaibulic/personal.git
-git clone http://github/mihaibulic/ramit.git
-git clone http://github/mihaibulic/TabMaster.git
-svn checkout <>
+git clone http://github.com/mihaibulic/april.git myapril
+git clone http://github.com/mihaibulic/audiomaster.git
+git clone http://github.com/mihaibulic/dibmap.git
+git clone http://github.com/mihaibulic/jarvis.git
+git clone http://github.com/mihaibulic/lcm.git
+git clone http://github.com/mihaibulic/madmin.git
+git clone http://github.com/mihaibulic/misquares.git
+git clone http://github.com/mihaibulic/music.git
+git clone http://github.com/mihaibulic/personal.git
+git clone http://github.com/mihaibulic/ramit.git
+git clone http://github.com/mihaibulic/TabMaster.git
+svn checkout svn://ec2-107-22-81-95.compute-1.amazonaws.com:3690/trunk/justastat 
 
 cd $HOME/Workspaces/april/java && mkdir -p build && ant
 cd $HOME/Workspaces/audiomaster && mkdir -p build && ant
@@ -70,5 +73,9 @@ cd $HOME/Workspaces/justastat && mvn clean install
 cd $HOME
 
 # SCRIPT #
+git config --global user.name "mihai"
+git config --global user.email mihaibulic@gmail.com
+git config --global credential.helper cache
+
 sudo apt-get -y -q install preload
 sudo apt-get -y -q purge brltty brltty-x11 gwibber gwibber-service empathy empathy-common rhythmbox rhythmbox-date
